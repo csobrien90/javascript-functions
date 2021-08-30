@@ -32,7 +32,32 @@ const corners = (state = []) => {
   }
 };
 
-const printCells = (state) => {};
+const printCells = (state) => {
+  //use corners to figure out the array of visible cells
+  let corners = corners(state);
+  let arrToPrint = []
+  for (let j = corners.topRight[1]; j >= corners.bottomLeft[1]; j--) {
+    for (let i = corners.bottomLeft[0]; i <= corners.topRight[0]; i++) {
+      arrToPrint.push([i, j]);
+    }
+  }
+  
+  //iterate through that array and use printCell to print correct square
+  arrToPrint.map(cell => printCell(cell, state));
+  
+  //add space between same row items and \n before each new line
+  let width = corners.topRight[0] - corners.bottomLeft[0] + 1;
+  for (let i = 1; i < arrToPrint.length; i++) {
+    if (i % width === 0) {
+      arrToPrint[i] += '\n';
+    } else {
+      arrToPrint[i] += ' ';
+    }
+  }
+  arrToPrint.join('');
+
+  return arrToPrint;
+};
 
 const getNeighborsOf = ([x, y]) => {};
 
