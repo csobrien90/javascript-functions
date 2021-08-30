@@ -34,29 +34,16 @@ const corners = (state = []) => {
 
 const printCells = (state) => {
   //use corners to figure out the array of visible cells
-  let bounds = corners(state);
-  let arrToPrint = []
-  for (let j = bounds.topRight[1]; j >= bounds.bottomLeft[1]; j--) {
-    for (let i = bounds.bottomLeft[0]; i <= bounds.topRight[0]; i++) {
-      arrToPrint.push([i, j]);
+  let {bottomLeft, topRight} = corners(state);
+  let toPrint = "";
+  for (let j = topRight[1]; j >= bottomLeft[1]; j--) {
+    let row = [];
+    for (let i = bottomLeft[0]; i <= topRight[0]; i++) {
+      row.push(printCell([i, j], state));
     }
+    toPrint += row.join(' ') + '\n';
   }
-  
-  //iterate through that array and use printCell to print correct square
-  arrToPrint.map(cell => printCell(cell, state));
-  
-  //add space between same row items and \n before each new line
-  let width = bounds.topRight[0] - bounds.bottomLeft[0] + 1;
-  for (let i = 1; i < arrToPrint.length; i++) {
-    if (i % width === 0) {
-      arrToPrint[i] += '\n';
-    } else {
-      arrToPrint[i] += ' ';
-    }
-  }
-  arrToPrint.join('');
-
-  return arrToPrint;
+  return toPrint;
 };
 
 const getNeighborsOf = ([x, y]) => {};
