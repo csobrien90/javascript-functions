@@ -46,7 +46,19 @@ const printCells = (state) => {
   return toPrint;
 };
 
-const getNeighborsOf = ([x, y]) => {};
+const getNeighborsOf = ([x, y]) => {
+  let newArr = [
+    [x - 1, y - 1],
+    [x, y - 1],
+    [x + 1, y - 1],
+    [x - 1, y],
+    [x + 1, y],
+    [x - 1, y + 1],
+    [x, y + 1],
+    [x + 1, y + 1]
+  ]
+  return newArr;
+};
 
 const getLivingNeighbors = (cell, state) => {};
 
